@@ -1,0 +1,15 @@
+D:\Budget TRACKER\universal-tws-sync\src\UniversalTWSSync.App\obj\Debug\UniversalTWSSync.App.csproj.AssemblyReference.cache
+D:\Budget TRACKER\universal-tws-sync\src\UniversalTWSSync.App\obj\Debug\App.baml
+D:\Budget TRACKER\universal-tws-sync\src\UniversalTWSSync.App\obj\Debug\MainWindow.g.cs
+D:\Budget TRACKER\universal-tws-sync\src\UniversalTWSSync.App\obj\Debug\App.g.cs
+D:\Budget TRACKER\universal-tws-sync\src\UniversalTWSSync.App\obj\Debug\UniversalTWSSync.App_MarkupCompile.cache
+D:\Budget TRACKER\universal-tws-sync\src\UniversalTWSSync.App\bin\Debug\UniversalTWSSync.App.exe
+D:\Budget TRACKER\universal-tws-sync\src\UniversalTWSSync.App\bin\Debug\UniversalTWSSync.App.pdb
+D:\Budget TRACKER\universal-tws-sync\src\UniversalTWSSync.App\obj\Debug\MainWindow.baml
+D:\Budget TRACKER\universal-tws-sync\src\UniversalTWSSync.App\obj\Debug\UniversalTWSSync.App.g.resources
+D:\Budget TRACKER\universal-tws-sync\src\UniversalTWSSync.App\obj\Debug\UniversalTWSSync.App.csproj.CoreCompileInputs.cache
+D:\Budget TRACKER\universal-tws-sync\src\UniversalTWSSync.App\obj\Debug\UniversalTWSSync.App.exe
+D:\Budget TRACKER\universal-tws-sync\src\UniversalTWSSync.App\obj\Debug\UniversalTWSSync.App.pdb
+D:\Budget TRACKER\universal-tws-sync\src\UniversalTWSSync.App\bin\Debug\NAudio.dll
+D:\Budget TRACKER\universal-tws-sync\src\UniversalTWSSync.App\bin\Debug\NAudio.xml
+D:\Budget TRACKER\universal-tws-sync\src\UniversalTWSSync.App\obj\Debug\UniversalTWSSync.App.csproj.CopyComplete

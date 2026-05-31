@@ -1,0 +1,1165 @@
+<Window x:Class="UniversalTWSSync.App.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d"
+        Title="Universal TWS Sync"
+        Width="1440"
+        Height="920"
+        MinWidth="1260"
+        MinHeight="760"
+        WindowStartupLocation="CenterScreen"
+        WindowStyle="None"
+        ResizeMode="CanResizeWithGrip"
+        Background="Transparent">
+    <Border Margin="14"
+            Background="{StaticResource WindowBackgroundGradientBrush}"
+            BorderBrush="#171B24"
+            BorderThickness="1"
+            CornerRadius="32">
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="18*" />
+                <ColumnDefinition Width="57*" />
+                <ColumnDefinition Width="25*" />
+            </Grid.ColumnDefinitions>
+
+            <Border Grid.Column="0"
+                    Background="{StaticResource SidebarBackgroundBrush}"
+                    CornerRadius="32,0,0,32"
+                    MouseLeftButtonDown="Sidebar_MouseLeftButtonDown">
+                <Grid Margin="24">
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="Auto" />
+                    </Grid.RowDefinitions>
+
+                    <StackPanel Grid.Row="0">
+                        <StackPanel Orientation="Horizontal">
+                            <Border Width="50"
+                                    Height="50"
+                                    CornerRadius="25"
+                                    BorderBrush="{StaticResource AccentBrush}"
+                                    BorderThickness="2"
+                                    Background="#0C0F14"
+                                    Effect="{StaticResource GlowShadowEffect}">
+                                <TextBlock Text="|||"
+                                           Foreground="{StaticResource TextPrimaryBrush}"
+                                           FontSize="18"
+                                           FontWeight="SemiBold"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center" />
+                            </Border>
+                            <StackPanel Margin="14,2,0,0">
+                                <TextBlock Text="TWS Sync"
+                                           Foreground="{StaticResource TextPrimaryBrush}"
+                                           FontSize="22"
+                                           FontWeight="SemiBold" />
+                                <TextBlock Text="Universal"
+                                           Foreground="{StaticResource TextSecondaryBrush}"
+                                           FontSize="14"
+                                           Margin="0,4,0,0" />
+                            </StackPanel>
+                        </StackPanel>
+                    </StackPanel>
+
+                    <StackPanel Grid.Row="1" Margin="0,34,0,0">
+                        <Button Style="{StaticResource SidebarNavButtonStyle}"
+                                Background="#23263F"
+                                BorderBrush="{StaticResource AccentBrush}"
+                                BorderThickness="1"
+                                Effect="{StaticResource GlowShadowEffect}">
+                            <TextBlock Text="Dashboard" />
+                        </Button>
+                        <Button Style="{StaticResource SidebarNavButtonStyle}">
+                            <TextBlock Text="Devices" />
+                        </Button>
+                        <Button Style="{StaticResource SidebarNavButtonStyle}">
+                            <TextBlock Text="Calibration" />
+                        </Button>
+                        <Button Style="{StaticResource SidebarNavButtonStyle}">
+                            <TextBlock Text="Settings" />
+                        </Button>
+                        <Button Style="{StaticResource SidebarNavButtonStyle}">
+                            <TextBlock Text="About" />
+                        </Button>
+                    </StackPanel>
+
+                    <Border Grid.Row="2"
+                            Style="{StaticResource SmallCardStyle}"
+                            VerticalAlignment="Bottom"
+                            Padding="22"
+                            Margin="0,0,0,18">
+                        <StackPanel>
+                            <TextBlock Text="Sync Status"
+                                       Style="{StaticResource LabelTextStyle}" />
+                            <StackPanel Orientation="Horizontal" Margin="0,14,0,0">
+                                <Ellipse Width="10"
+                                         Height="10"
+                                         Fill="{Binding SyncIndicatorBrush}"
+                                         VerticalAlignment="Center" />
+                                <TextBlock Text="{Binding SyncStatusTitle}"
+                                           Foreground="{StaticResource TextPrimaryBrush}"
+                                           FontSize="18"
+                                           FontWeight="SemiBold"
+                                           Margin="10,0,0,0" />
+                            </StackPanel>
+                            <TextBlock Text="{Binding SyncStatusMessage}"
+                                       Style="{StaticResource BodyTextStyle}"
+                                       Margin="0,12,0,0"
+                                       TextWrapping="Wrap"
+                                       LineHeight="22" />
+                        </StackPanel>
+                    </Border>
+
+                    <StackPanel Grid.Row="3"
+                                Orientation="Horizontal"
+                                HorizontalAlignment="Center">
+                        <Button Content="Theme"
+                                Style="{StaticResource SecondaryButtonStyle}"
+                                FontSize="12"
+                                Padding="12,8"
+                                Margin="0,0,8,0" />
+                        <Button Content="Help"
+                                Style="{StaticResource SecondaryButtonStyle}"
+                                FontSize="12"
+                                Padding="12,8"
+                                Margin="0,0,8,0" />
+                        <Button Content="Power"
+                                Style="{StaticResource SecondaryButtonStyle}"
+                                FontSize="12"
+                                Padding="12,8"
+                                Click="CloseButton_Click" />
+                    </StackPanel>
+                </Grid>
+            </Border>
+
+            <Grid Grid.Column="1" Margin="28,24,20,24">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="Auto" />
+                    <RowDefinition Height="*" />
+                </Grid.RowDefinitions>
+
+                <Grid Grid.Row="0" MouseLeftButtonDown="TopBar_MouseLeftButtonDown">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*" />
+                        <ColumnDefinition Width="Auto" />
+                    </Grid.ColumnDefinitions>
+
+                    <StackPanel Margin="0,0,18,0">
+                        <TextBlock Text="{Binding Greeting}"
+                                   Foreground="{StaticResource TextPrimaryBrush}"
+                                   FontSize="16"
+                                   FontWeight="SemiBold" />
+                        <TextBlock Text="Your audio. Perfectly in sync."
+                                   Style="{StaticResource HeroTitleStyle}"
+                                   TextWrapping="Wrap"
+                                   Margin="0,12,0,0" />
+                        <TextBlock Text="Connect your earbuds and enjoy a seamless audio experience."
+                                   Style="{StaticResource BodyTextStyle}"
+                                   Margin="0,18,0,0"
+                                   TextWrapping="Wrap" />
+                    </StackPanel>
+
+                    <StackPanel Grid.Column="1"
+                                Orientation="Horizontal"
+                                VerticalAlignment="Top">
+                        <Button Command="{Binding ScanDevicesCommand}"
+                                Style="{StaticResource SecondaryButtonStyle}"
+                                Padding="24,14"
+                                Margin="0,0,16,0">
+                            <TextBlock Text="Scan Devices"
+                                       FontSize="14"
+                                       FontWeight="SemiBold" />
+                        </Button>
+                        <Button Content="_"
+                                Style="{StaticResource WindowControlButtonStyle}"
+                                Click="MinimizeButton_Click" />
+                        <Button Content="□"
+                                Style="{StaticResource WindowControlButtonStyle}"
+                                Click="MaximizeButton_Click" />
+                        <Button Content="X"
+                                Style="{StaticResource WindowControlButtonStyle}"
+                                Click="CloseButton_Click" />
+                    </StackPanel>
+                </Grid>
+
+                <ScrollViewer Grid.Row="1"
+                              Margin="0,32,0,0"
+                              VerticalScrollBarVisibility="Auto"
+                              HorizontalScrollBarVisibility="Disabled"
+                              CanContentScroll="False">
+                    <StackPanel>
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="*" />
+                                <ColumnDefinition Width="*" />
+                            </Grid.ColumnDefinitions>
+
+                            <Border Grid.Column="0"
+                                    Style="{StaticResource DeviceCardStyle}"
+                                    Margin="0,0,8,0"
+                                    Padding="24"
+                                    MinHeight="432">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+
+                                    <Grid Grid.Row="0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <StackPanel>
+                                            <TextBlock Text="Left Earbud" Style="{StaticResource DeviceCardTitleStyle}" />
+                                            <TextBlock Text="{Binding SelectedLeftDevice.CleanDisplayName, FallbackValue=realme Buds T300, TargetNullValue=realme Buds T300}"
+                                                       Style="{StaticResource DeviceCardSubtitleStyle}"
+                                                       Margin="0,6,0,0"
+                                                       TextWrapping="NoWrap" />
+                                        </StackPanel>
+                                        <Grid Grid.Column="1"
+                                              Width="18"
+                                              Height="18"
+                                              VerticalAlignment="Center">
+                                            <Ellipse Width="10"
+                                                     Height="10"
+                                                     Fill="{Binding LeftEarbud.IndicatorBrush}"
+                                                     HorizontalAlignment="Center"
+                                                     VerticalAlignment="Center" />
+                                            <Ellipse Width="10"
+                                                     Height="10"
+                                                     Stroke="{Binding LeftEarbud.IndicatorBrush}"
+                                                     StrokeThickness="2"
+                                                     Opacity="0.35"
+                                                     HorizontalAlignment="Center"
+                                                     VerticalAlignment="Center"
+                                                     RenderTransformOrigin="0.5,0.5">
+                                                <Ellipse.RenderTransform>
+                                                    <ScaleTransform ScaleX="1" ScaleY="1" />
+                                                </Ellipse.RenderTransform>
+                                                <Ellipse.Triggers>
+                                                    <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+                                                        <BeginStoryboard>
+                                                            <Storyboard RepeatBehavior="Forever">
+                                                                <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                                                                 From="0.35"
+                                                                                 To="0"
+                                                                                 Duration="0:0:1.4" />
+                                                                <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)"
+                                                                                 From="1"
+                                                                                 To="2.2"
+                                                                                 Duration="0:0:1.4" />
+                                                                <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)"
+                                                                                 From="1"
+                                                                                 To="2.2"
+                                                                                 Duration="0:0:1.4" />
+                                                            </Storyboard>
+                                                        </BeginStoryboard>
+                                                    </EventTrigger>
+                                                </Ellipse.Triggers>
+                                            </Ellipse>
+                                        </Grid>
+                                    </Grid>
+
+                                    <Grid Grid.Row="1" Margin="0,20,0,0">
+                                        <ComboBox Style="{StaticResource DarkComboBoxStyle}"
+                                                  ItemsSource="{Binding AvailableDevices}"
+                                                  SelectedItem="{Binding SelectedLeftDevice}"
+                                                  TextSearch.TextPath="CleanDisplayName"
+                                                  Foreground="Transparent">
+                                            <ComboBox.ItemTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock Text="{Binding CleanDisplayName}"
+                                                               Foreground="{StaticResource TextSecondaryBrush}"
+                                                               FontSize="13"
+                                                               TextTrimming="CharacterEllipsis" />
+                                                </DataTemplate>
+                                            </ComboBox.ItemTemplate>
+                                        </ComboBox>
+                                        <TextBlock IsHitTestVisible="False"
+                                                   Margin="16,0,52,0"
+                                                   VerticalAlignment="Center"
+                                                   Foreground="{StaticResource TextSecondaryBrush}"
+                                                   FontSize="13"
+                                                   Text="{Binding SelectedLeftDevice.CleanDisplayName, FallbackValue=realme Buds T300, TargetNullValue=realme Buds T300}"
+                                                   TextTrimming="CharacterEllipsis" />
+                                    </Grid>
+
+                                    <Border Grid.Row="2"
+                                            Margin="0,20,0,0"
+                                            CornerRadius="20"
+                                            BorderThickness="0"
+                                            MinHeight="240">
+                                        <Border.Background>
+                                            <RadialGradientBrush Center="0.5,0.3"
+                                                                 GradientOrigin="0.5,0.3"
+                                                                 RadiusX="0.9"
+                                                                 RadiusY="0.9">
+                                                <GradientStop Color="#127C6BFF" Offset="0" />
+                                                <GradientStop Color="#090B14" Offset="0.6" />
+                                                <GradientStop Color="#050608" Offset="1" />
+                                            </RadialGradientBrush>
+                                        </Border.Background>
+                                        <Grid>
+                                            <Border Width="28"
+                                                    Height="28"
+                                                    CornerRadius="14"
+                                                    HorizontalAlignment="Left"
+                                                    VerticalAlignment="Top"
+                                                    Margin="14,-14,0,0"
+                                                    Panel.ZIndex="2"
+                                                    Effect="{StaticResource GlowShadowEffect}">
+                                                <Border.Background>
+                                                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                                        <GradientStop Color="#7C6BFF" Offset="0" />
+                                                        <GradientStop Color="#4D8CFF" Offset="1" />
+                                                    </LinearGradientBrush>
+                                                </Border.Background>
+                                                <TextBlock Text="L"
+                                                           Foreground="{StaticResource TextPrimaryBrush}"
+                                                           FontSize="13"
+                                                           FontWeight="Bold"
+                                                           HorizontalAlignment="Center"
+                                                           VerticalAlignment="Center" />
+                                            </Border>
+
+                                            <Grid HorizontalAlignment="Center"
+                                                  VerticalAlignment="Center"
+                                                  Width="176"
+                                                  Height="176">
+                                                <Ellipse Width="176"
+                                                         Height="176"
+                                                         Fill="#147C6BFF"
+                                                         Opacity="0.35" />
+                                                <Grid Width="118"
+                                                      Height="150"
+                                                      HorizontalAlignment="Center"
+                                                      VerticalAlignment="Center">
+                                                    <Ellipse Width="98"
+                                                             Height="86"
+                                                             Fill="#22253A"
+                                                             HorizontalAlignment="Center"
+                                                             VerticalAlignment="Top"
+                                                             Margin="-10,0,0,0" />
+                                                    <Border Width="56"
+                                                            Height="122"
+                                                            Background="#1A1D27"
+                                                            CornerRadius="28"
+                                                            HorizontalAlignment="Center"
+                                                            VerticalAlignment="Bottom"
+                                                            Margin="-10,0,0,0" />
+                                                    <Border Width="2"
+                                                            Height="96"
+                                                            Background="#1FFFFFFF"
+                                                            HorizontalAlignment="Center"
+                                                            VerticalAlignment="Bottom"
+                                                            Margin="-36,0,0,14" />
+                                                    <Ellipse Width="10"
+                                                             Height="10"
+                                                             Fill="{StaticResource AccentBrush}"
+                                                             HorizontalAlignment="Center"
+                                                             VerticalAlignment="Top"
+                                                             Margin="12,54,0,0" />
+                                                    <StackPanel Orientation="Horizontal"
+                                                                HorizontalAlignment="Center"
+                                                                VerticalAlignment="Bottom"
+                                                                Margin="12,0,0,18"
+                                                                Opacity="0.4">
+                                                        <Ellipse Width="4" Height="4" Fill="{StaticResource TextPrimaryBrush}" Margin="0,0,4,0" />
+                                                        <Ellipse Width="4" Height="4" Fill="{StaticResource TextPrimaryBrush}" Margin="0,0,4,0" />
+                                                        <Ellipse Width="4" Height="4" Fill="{StaticResource TextPrimaryBrush}" />
+                                                    </StackPanel>
+                                                </Grid>
+                                            </Grid>
+                                        </Grid>
+                                    </Border>
+
+                                    <Grid Grid.Row="3" Margin="0,20,0,0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <Border Style="{StaticResource BluetoothPillStyle}"
+                                                HorizontalAlignment="Left">
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="●"
+                                                           Foreground="{StaticResource AccentBrush}"
+                                                           FontSize="12"
+                                                           FontWeight="SemiBold" />
+                                                <TextBlock Text="{Binding LeftEarbud.ConnectionText}"
+                                                           Foreground="{StaticResource AccentBrush}"
+                                                           FontSize="12"
+                                                           FontWeight="Medium"
+                                                           Margin="8,0,0,0" />
+                                            </StackPanel>
+                                        </Border>
+                                        <Border Grid.Column="1"
+                                                Style="{StaticResource BatteryPillStyle}">
+                                            <Grid>
+                                                <Grid x:Name="LeftBatteryKnown">
+                                                    <Grid.Style>
+                                                        <Style TargetType="Grid">
+                                                            <Style.Triggers>
+                                                                <DataTrigger Binding="{Binding LeftEarbud.BatteryLevel}" Value="-1">
+                                                                    <Setter Property="Visibility" Value="Collapsed" />
+                                                                </DataTrigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </Grid.Style>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="34" />
+                                                        <ColumnDefinition Width="Auto" />
+                                                    </Grid.ColumnDefinitions>
+                                                    <ProgressBar Grid.Column="0"
+                                                                 Style="{StaticResource BatteryProgressBarStyle}"
+                                                                 Width="28"
+                                                                 Height="5"
+                                                                 Value="{Binding LeftEarbud.BatteryProgressValue, Mode=OneWay}"
+                                                                 Maximum="100"
+                                                                 VerticalAlignment="Center" />
+                                                    <TextBlock Grid.Column="1"
+                                                               Text="{Binding LeftEarbud.BatteryLabel}"
+                                                               Foreground="{StaticResource TextPrimaryBrush}"
+                                                               FontSize="12"
+                                                               FontWeight="SemiBold"
+                                                               Margin="6,0,0,0" />
+                                                </Grid>
+                                                <TextBlock x:Name="LeftBatteryUnknown"
+                                                           Text="{Binding LeftEarbud.BatteryLabel}"
+                                                           Foreground="{StaticResource TextMutedBrush}"
+                                                           FontSize="12"
+                                                           FontWeight="Medium"
+                                                           Visibility="Collapsed">
+                                                    <TextBlock.Style>
+                                                        <Style TargetType="TextBlock">
+                                                            <Setter Property="Visibility" Value="Collapsed" />
+                                                            <Style.Triggers>
+                                                                <DataTrigger Binding="{Binding LeftEarbud.BatteryLevel}" Value="-1">
+                                                                    <Setter Property="Visibility" Value="Visible" />
+                                                                </DataTrigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </TextBlock.Style>
+                                                </TextBlock>
+                                            </Grid>
+                                        </Border>
+                                    </Grid>
+                                </Grid>
+                            </Border>
+
+                            <Border Grid.Column="1"
+                                    Style="{StaticResource DeviceCardStyle}"
+                                    Margin="8,0,0,0"
+                                    Padding="24"
+                                    MinHeight="432">
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="Auto" />
+                                        <RowDefinition Height="*" />
+                                        <RowDefinition Height="Auto" />
+                                    </Grid.RowDefinitions>
+
+                                    <Grid Grid.Row="0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <StackPanel>
+                                            <TextBlock Text="Right Earbud" Style="{StaticResource DeviceCardTitleStyle}" />
+                                            <TextBlock Text="{Binding SelectedRightDevice.CleanDisplayName, FallbackValue=realme Buds Air6 Pro, TargetNullValue=realme Buds Air6 Pro}"
+                                                       Style="{StaticResource DeviceCardSubtitleStyle}"
+                                                       Margin="0,6,0,0"
+                                                       TextWrapping="NoWrap" />
+                                        </StackPanel>
+                                        <Grid Grid.Column="1"
+                                              Width="18"
+                                              Height="18"
+                                              VerticalAlignment="Center">
+                                            <Ellipse Width="10"
+                                                     Height="10"
+                                                     Fill="{Binding RightEarbud.IndicatorBrush}"
+                                                     HorizontalAlignment="Center"
+                                                     VerticalAlignment="Center" />
+                                            <Ellipse Width="10"
+                                                     Height="10"
+                                                     Stroke="{Binding RightEarbud.IndicatorBrush}"
+                                                     StrokeThickness="2"
+                                                     Opacity="0.35"
+                                                     HorizontalAlignment="Center"
+                                                     VerticalAlignment="Center"
+                                                     RenderTransformOrigin="0.5,0.5">
+                                                <Ellipse.RenderTransform>
+                                                    <ScaleTransform ScaleX="1" ScaleY="1" />
+                                                </Ellipse.RenderTransform>
+                                                <Ellipse.Triggers>
+                                                    <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+                                                        <BeginStoryboard>
+                                                            <Storyboard RepeatBehavior="Forever">
+                                                                <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                                                                 From="0.35"
+                                                                                 To="0"
+                                                                                 Duration="0:0:1.4" />
+                                                                <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleX)"
+                                                                                 From="1"
+                                                                                 To="2.2"
+                                                                                 Duration="0:0:1.4" />
+                                                                <DoubleAnimation Storyboard.TargetProperty="(UIElement.RenderTransform).(ScaleTransform.ScaleY)"
+                                                                                 From="1"
+                                                                                 To="2.2"
+                                                                                 Duration="0:0:1.4" />
+                                                            </Storyboard>
+                                                        </BeginStoryboard>
+                                                    </EventTrigger>
+                                                </Ellipse.Triggers>
+                                            </Ellipse>
+                                        </Grid>
+                                    </Grid>
+
+                                    <Grid Grid.Row="1" Margin="0,20,0,0">
+                                        <ComboBox Style="{StaticResource DarkComboBoxStyle}"
+                                                  ItemsSource="{Binding AvailableDevices}"
+                                                  SelectedItem="{Binding SelectedRightDevice}"
+                                                  TextSearch.TextPath="CleanDisplayName"
+                                                  Foreground="Transparent">
+                                            <ComboBox.ItemTemplate>
+                                                <DataTemplate>
+                                                    <TextBlock Text="{Binding CleanDisplayName}"
+                                                               Foreground="{StaticResource TextSecondaryBrush}"
+                                                               FontSize="13"
+                                                               TextTrimming="CharacterEllipsis" />
+                                                </DataTemplate>
+                                            </ComboBox.ItemTemplate>
+                                        </ComboBox>
+                                        <TextBlock IsHitTestVisible="False"
+                                                   Margin="16,0,52,0"
+                                                   VerticalAlignment="Center"
+                                                   Foreground="{StaticResource TextSecondaryBrush}"
+                                                   FontSize="13"
+                                                   Text="{Binding SelectedRightDevice.CleanDisplayName, FallbackValue=realme Buds Air6 Pro, TargetNullValue=realme Buds Air6 Pro}"
+                                                   TextTrimming="CharacterEllipsis" />
+                                    </Grid>
+
+                                    <Border Grid.Row="2"
+                                            Margin="0,20,0,0"
+                                            CornerRadius="20"
+                                            BorderThickness="0"
+                                            MinHeight="240">
+                                        <Border.Background>
+                                            <RadialGradientBrush Center="0.5,0.3"
+                                                                 GradientOrigin="0.5,0.3"
+                                                                 RadiusX="0.9"
+                                                                 RadiusY="0.9">
+                                                <GradientStop Color="#127C6BFF" Offset="0" />
+                                                <GradientStop Color="#090B14" Offset="0.6" />
+                                                <GradientStop Color="#050608" Offset="1" />
+                                            </RadialGradientBrush>
+                                        </Border.Background>
+                                        <Grid>
+                                            <Border Width="28"
+                                                    Height="28"
+                                                    CornerRadius="14"
+                                                    HorizontalAlignment="Left"
+                                                    VerticalAlignment="Top"
+                                                    Margin="14,-14,0,0"
+                                                    Panel.ZIndex="2"
+                                                    Effect="{StaticResource GlowShadowEffect}">
+                                                <Border.Background>
+                                                    <LinearGradientBrush StartPoint="0,0" EndPoint="1,1">
+                                                        <GradientStop Color="#7C6BFF" Offset="0" />
+                                                        <GradientStop Color="#4D8CFF" Offset="1" />
+                                                    </LinearGradientBrush>
+                                                </Border.Background>
+                                                <TextBlock Text="R"
+                                                           Foreground="{StaticResource TextPrimaryBrush}"
+                                                           FontSize="13"
+                                                           FontWeight="Bold"
+                                                           HorizontalAlignment="Center"
+                                                           VerticalAlignment="Center" />
+                                            </Border>
+
+                                            <Grid HorizontalAlignment="Center"
+                                                  VerticalAlignment="Center"
+                                                  Width="176"
+                                                  Height="176">
+                                                <Ellipse Width="176"
+                                                         Height="176"
+                                                         Fill="#147C6BFF"
+                                                         Opacity="0.35" />
+                                                <Grid Width="118"
+                                                      Height="150"
+                                                      HorizontalAlignment="Center"
+                                                      VerticalAlignment="Center">
+                                                    <Grid.RenderTransform>
+                                                        <ScaleTransform ScaleX="-1" ScaleY="1" />
+                                                    </Grid.RenderTransform>
+                                                    <Ellipse Width="98"
+                                                             Height="86"
+                                                             Fill="#22253A"
+                                                             HorizontalAlignment="Center"
+                                                             VerticalAlignment="Top"
+                                                             Margin="-10,0,0,0" />
+                                                    <Border Width="56"
+                                                            Height="122"
+                                                            Background="#1A1D27"
+                                                            CornerRadius="28"
+                                                            HorizontalAlignment="Center"
+                                                            VerticalAlignment="Bottom"
+                                                            Margin="-10,0,0,0" />
+                                                    <Border Width="2"
+                                                            Height="96"
+                                                            Background="#1FFFFFFF"
+                                                            HorizontalAlignment="Center"
+                                                            VerticalAlignment="Bottom"
+                                                            Margin="-36,0,0,14" />
+                                                    <Ellipse Width="10"
+                                                             Height="10"
+                                                             Fill="{StaticResource AccentBrush}"
+                                                             HorizontalAlignment="Center"
+                                                             VerticalAlignment="Top"
+                                                             Margin="12,54,0,0" />
+                                                    <StackPanel Orientation="Horizontal"
+                                                                HorizontalAlignment="Center"
+                                                                VerticalAlignment="Bottom"
+                                                                Margin="12,0,0,18"
+                                                                Opacity="0.4">
+                                                        <Ellipse Width="4" Height="4" Fill="{StaticResource TextPrimaryBrush}" Margin="0,0,4,0" />
+                                                        <Ellipse Width="4" Height="4" Fill="{StaticResource TextPrimaryBrush}" Margin="0,0,4,0" />
+                                                        <Ellipse Width="4" Height="4" Fill="{StaticResource TextPrimaryBrush}" />
+                                                    </StackPanel>
+                                                </Grid>
+                                            </Grid>
+                                        </Grid>
+                                    </Border>
+
+                                    <Grid Grid.Row="3" Margin="0,20,0,0">
+                                        <Grid.ColumnDefinitions>
+                                            <ColumnDefinition Width="*" />
+                                            <ColumnDefinition Width="Auto" />
+                                        </Grid.ColumnDefinitions>
+                                        <Border Style="{StaticResource BluetoothPillStyle}"
+                                                HorizontalAlignment="Left">
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="●"
+                                                           Foreground="{StaticResource AccentBrush}"
+                                                           FontSize="12"
+                                                           FontWeight="SemiBold" />
+                                                <TextBlock Text="{Binding RightEarbud.ConnectionText}"
+                                                           Foreground="{StaticResource AccentBrush}"
+                                                           FontSize="12"
+                                                           FontWeight="Medium"
+                                                           Margin="8,0,0,0" />
+                                            </StackPanel>
+                                        </Border>
+                                        <Border Grid.Column="1"
+                                                Style="{StaticResource BatteryPillStyle}">
+                                            <Grid>
+                                                <Grid x:Name="RightBatteryKnown">
+                                                    <Grid.Style>
+                                                        <Style TargetType="Grid">
+                                                            <Style.Triggers>
+                                                                <DataTrigger Binding="{Binding RightEarbud.BatteryLevel}" Value="-1">
+                                                                    <Setter Property="Visibility" Value="Collapsed" />
+                                                                </DataTrigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </Grid.Style>
+                                                    <Grid.ColumnDefinitions>
+                                                        <ColumnDefinition Width="34" />
+                                                        <ColumnDefinition Width="Auto" />
+                                                    </Grid.ColumnDefinitions>
+                                                    <ProgressBar Grid.Column="0"
+                                                                 Style="{StaticResource BatteryProgressBarStyle}"
+                                                                 Width="28"
+                                                                 Height="5"
+                                                                 Value="{Binding RightEarbud.BatteryProgressValue, Mode=OneWay}"
+                                                                 Maximum="100"
+                                                                 VerticalAlignment="Center" />
+                                                    <TextBlock Grid.Column="1"
+                                                               Text="{Binding RightEarbud.BatteryLabel}"
+                                                               Foreground="{StaticResource TextPrimaryBrush}"
+                                                               FontSize="12"
+                                                               FontWeight="SemiBold"
+                                                               Margin="6,0,0,0" />
+                                                </Grid>
+                                                <TextBlock x:Name="RightBatteryUnknown"
+                                                           Text="{Binding RightEarbud.BatteryLabel}"
+                                                           Foreground="{StaticResource TextMutedBrush}"
+                                                           FontSize="12"
+                                                           FontWeight="Medium"
+                                                           Visibility="Collapsed">
+                                                    <TextBlock.Style>
+                                                        <Style TargetType="TextBlock">
+                                                            <Setter Property="Visibility" Value="Collapsed" />
+                                                            <Style.Triggers>
+                                                                <DataTrigger Binding="{Binding RightEarbud.BatteryLevel}" Value="-1">
+                                                                    <Setter Property="Visibility" Value="Visible" />
+                                                                </DataTrigger>
+                                                            </Style.Triggers>
+                                                        </Style>
+                                                    </TextBlock.Style>
+                                                </TextBlock>
+                                            </Grid>
+                                        </Border>
+                                    </Grid>
+                                </Grid>
+                            </Border>
+                        </Grid>
+
+                        <Border Style="{StaticResource ShellCardStyle}"
+                                Padding="28"
+                                Margin="0,28,0,0">
+                            <StackPanel>
+                                <TextBlock Text="Synchronization" Style="{StaticResource SectionHeaderStyle}" />
+
+                                <Grid Margin="0,24,0,0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Text="Latency Adjustment"
+                                               Foreground="{StaticResource TextPrimaryBrush}"
+                                               FontSize="14"
+                                               FontWeight="Medium"
+                                               VerticalAlignment="Center" />
+                                    <Border Grid.Column="1"
+                                            Style="{StaticResource PillBorderStyle}"
+                                            Background="#171D2A">
+                                        <TextBlock Text="{Binding LeftDelayLabel}"
+                                                   Foreground="{StaticResource AccentBrush}"
+                                                   FontSize="13"
+                                                   FontWeight="SemiBold" />
+                                    </Border>
+                                </Grid>
+
+                                <Slider Style="{StaticResource LatencySliderStyle}"
+                                        Margin="0,18,0,0"
+                                        Minimum="-100"
+                                        Maximum="100"
+                                        Value="{Binding LeftDelayMs, UpdateSourceTrigger=PropertyChanged}" />
+
+                                <Grid Margin="0,10,0,0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <TextBlock Text="-100ms" Style="{StaticResource MutedTextStyle}" />
+                                    <TextBlock Grid.Column="1" Text="-50ms" Style="{StaticResource MutedTextStyle}" HorizontalAlignment="Center" />
+                                    <TextBlock Grid.Column="2" Text="0ms" Style="{StaticResource MutedTextStyle}" HorizontalAlignment="Center" />
+                                    <TextBlock Grid.Column="3" Text="+50ms" Style="{StaticResource MutedTextStyle}" HorizontalAlignment="Center" />
+                                    <TextBlock Grid.Column="4" Text="+100ms" Style="{StaticResource MutedTextStyle}" HorizontalAlignment="Right" />
+                                </Grid>
+
+                                <Grid Margin="0,26,0,0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="180" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+
+                                    <Border Style="{StaticResource SmallCardStyle}"
+                                            Padding="20"
+                                            Margin="0,0,12,0"
+                                            Background="#10141C">
+                                        <StackPanel>
+                                            <TextBlock Text="Left Delay" Style="{StaticResource LabelTextStyle}" />
+                                            <TextBlock Text="{Binding LeftDelayLabel}"
+                                                       Foreground="{StaticResource AccentBrush}"
+                                                       FontSize="26"
+                                                       FontWeight="SemiBold"
+                                                       Margin="0,10,0,0" />
+                                        </StackPanel>
+                                    </Border>
+
+                                    <StackPanel Grid.Column="1"
+                                                VerticalAlignment="Center"
+                                                HorizontalAlignment="Center">
+                                        <Grid Width="88" Height="88">
+                                            <Ellipse Stroke="{StaticResource AccentBrush}"
+                                                     StrokeThickness="3"
+                                                     Effect="{StaticResource GlowShadowEffect}">
+                                                <Ellipse.Triggers>
+                                                    <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+                                                        <BeginStoryboard>
+                                                            <Storyboard RepeatBehavior="Forever" AutoReverse="True">
+                                                                <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                                                                 From="1"
+                                                                                 To="0.6"
+                                                                                 Duration="0:0:1.8" />
+                                                            </Storyboard>
+                                                        </BeginStoryboard>
+                                                    </EventTrigger>
+                                                </Ellipse.Triggers>
+                                            </Ellipse>
+                                            <TextBlock Text="Sync"
+                                                       Foreground="{StaticResource TextPrimaryBrush}"
+                                                       FontSize="14"
+                                                       FontWeight="SemiBold"
+                                                       HorizontalAlignment="Center"
+                                                       VerticalAlignment="Center" />
+                                        </Grid>
+                                        <CheckBox IsChecked="{Binding IsAutoSyncEnabled}"
+                                                  Style="{StaticResource AutoSyncToggleStyle}"
+                                                  Margin="0,16,0,0" />
+                                    </StackPanel>
+
+                                    <Border Grid.Column="2"
+                                            Style="{StaticResource SmallCardStyle}"
+                                            Padding="20"
+                                            Margin="12,0,0,0"
+                                            Background="#10141C">
+                                        <StackPanel>
+                                            <TextBlock Text="Right Delay" Style="{StaticResource LabelTextStyle}" />
+                                            <TextBlock Text="{Binding RightDelayLabel}"
+                                                       Foreground="{StaticResource TextPrimaryBrush}"
+                                                       FontSize="26"
+                                                       FontWeight="SemiBold"
+                                                       Margin="0,10,0,0" />
+                                        </StackPanel>
+                                    </Border>
+                                </Grid>
+
+                                <Grid Margin="0,28,0,0">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="*" />
+                                    </Grid.ColumnDefinitions>
+                                    <Button Grid.Column="0"
+                                            Command="{Binding StopSyncCommand}"
+                                            Style="{StaticResource SecondaryButtonStyle}"
+                                            Margin="0,0,12,0"
+                                            Content="Stop Sync" />
+                                    <Button Grid.Column="1"
+                                            Command="{Binding StartSyncCommand}"
+                                            Style="{StaticResource PrimaryButtonStyle}"
+                                            Margin="12,0,0,0"
+                                            Content="Start Sync" />
+                                </Grid>
+                            </StackPanel>
+                        </Border>
+                    </StackPanel>
+                </ScrollViewer>
+            </Grid>
+
+            <ScrollViewer Grid.Column="2"
+                          Margin="0,24,24,24"
+                          VerticalScrollBarVisibility="Auto"
+                          HorizontalScrollBarVisibility="Disabled"
+                          CanContentScroll="False">
+                <StackPanel>
+                    <Border Style="{StaticResource ShellCardStyle}"
+                            Padding="24">
+                        <StackPanel>
+                            <Grid>
+                                <TextBlock Text="Connection" Style="{StaticResource SectionHeaderStyle}" />
+                                <TextBlock Text="..."
+                                           Foreground="{StaticResource TextSecondaryBrush}"
+                                           FontSize="18"
+                                           HorizontalAlignment="Right" />
+                            </Grid>
+
+                            <Grid Width="210"
+                                  Height="210"
+                                  HorizontalAlignment="Center"
+                                  Margin="0,24,0,0">
+                                <Ellipse Width="170"
+                                         Height="170"
+                                         Stroke="{StaticResource AccentBrush}"
+                                         StrokeThickness="5"
+                                         Effect="{StaticResource GlowShadowEffect}">
+                                    <Ellipse.Triggers>
+                                        <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+                                            <BeginStoryboard>
+                                                <Storyboard RepeatBehavior="Forever" AutoReverse="True">
+                                                    <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                                                     From="1"
+                                                                     To="0.65"
+                                                                     Duration="0:0:1.9" />
+                                                </Storyboard>
+                                            </BeginStoryboard>
+                                        </EventTrigger>
+                                    </Ellipse.Triggers>
+                                </Ellipse>
+                                <Ellipse Width="148"
+                                         Height="148"
+                                         Stroke="#232938"
+                                         StrokeThickness="2" />
+                                <Line X1="62" Y1="105" X2="148" Y2="105"
+                                      Stroke="{StaticResource AccentBlueBrush}"
+                                      StrokeThickness="2"
+                                      StrokeDashArray="3 4"
+                                      Opacity="0.75" />
+                                <Ellipse Width="14"
+                                         Height="14"
+                                         Fill="{StaticResource AccentBrush}"
+                                         HorizontalAlignment="Left"
+                                         Margin="44,0,0,0">
+                                    <Ellipse.Triggers>
+                                        <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+                                            <BeginStoryboard>
+                                                <Storyboard RepeatBehavior="Forever" AutoReverse="True">
+                                                    <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                                                     From="1"
+                                                                     To="0.55"
+                                                                     Duration="0:0:1.6" />
+                                                </Storyboard>
+                                            </BeginStoryboard>
+                                        </EventTrigger>
+                                    </Ellipse.Triggers>
+                                </Ellipse>
+                                <Ellipse Width="14"
+                                         Height="14"
+                                         Fill="{StaticResource AccentBlueBrush}"
+                                         HorizontalAlignment="Right"
+                                         Margin="0,0,44,0">
+                                    <Ellipse.Triggers>
+                                        <EventTrigger RoutedEvent="FrameworkElement.Loaded">
+                                            <BeginStoryboard>
+                                                <Storyboard RepeatBehavior="Forever" AutoReverse="True">
+                                                    <DoubleAnimation Storyboard.TargetProperty="Opacity"
+                                                                     From="1"
+                                                                     To="0.55"
+                                                                     Duration="0:0:1.6" />
+                                                </Storyboard>
+                                            </BeginStoryboard>
+                                        </EventTrigger>
+                                    </Ellipse.Triggers>
+                                </Ellipse>
+                                <TextBlock Text="|||"
+                                           Foreground="{StaticResource TextPrimaryBrush}"
+                                           FontSize="34"
+                                           FontWeight="SemiBold"
+                                           HorizontalAlignment="Center"
+                                           VerticalAlignment="Center" />
+                            </Grid>
+
+                            <TextBlock Text="{Binding ConnectionSummary}"
+                                       Foreground="{Binding ConnectionSummaryBrush}"
+                                       FontSize="18"
+                                       FontWeight="SemiBold"
+                                       TextAlignment="Center"
+                                       Margin="0,20,0,0" />
+                            <TextBlock Text="{Binding ConnectionDetails}"
+                                       Style="{StaticResource BodyTextStyle}"
+                                       TextAlignment="Center"
+                                       TextWrapping="Wrap"
+                                       Margin="0,10,0,0"
+                                       LineHeight="22" />
+                        </StackPanel>
+                    </Border>
+
+                    <Border Style="{StaticResource ShellCardStyle}"
+                            Padding="24"
+                            Margin="0,20,0,0">
+                        <StackPanel>
+                            <TextBlock Text="Battery Levels" Style="{StaticResource SectionHeaderStyle}" />
+
+                            <Grid Margin="0,22,0,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="40" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <Border Width="32"
+                                        Height="32"
+                                        CornerRadius="16"
+                                        Background="#1A2130">
+                                    <TextBlock Text="L"
+                                               Foreground="{StaticResource TextPrimaryBrush}"
+                                               HorizontalAlignment="Center"
+                                               VerticalAlignment="Center" />
+                                </Border>
+                                <StackPanel Grid.Column="1" Margin="12,0,12,0">
+                                    <TextBlock Text="Left Earbud"
+                                               Foreground="{StaticResource TextPrimaryBrush}"
+                                               FontSize="14"
+                                               FontWeight="Medium" />
+                                    <ProgressBar Style="{StaticResource BatteryProgressBarStyle}"
+                                                 Value="{Binding LeftEarbud.BatteryProgressValue, Mode=OneWay}"
+                                                 Maximum="100"
+                                                 Margin="0,10,0,0" />
+                                    <TextBlock Text="{Binding LeftEarbud.BatteryStatusText}"
+                                               Style="{StaticResource MutedTextStyle}"
+                                               Margin="0,8,0,0"
+                                               TextWrapping="Wrap" />
+                                </StackPanel>
+                                <TextBlock Grid.Column="2"
+                                           Text="{Binding LeftEarbud.BatteryLabel}"
+                                           Foreground="{StaticResource TextPrimaryBrush}"
+                                           FontSize="14"
+                                           FontWeight="SemiBold"
+                                           VerticalAlignment="Top" />
+                            </Grid>
+
+                            <Grid Margin="0,18,0,0">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="40" />
+                                    <ColumnDefinition Width="*" />
+                                    <ColumnDefinition Width="Auto" />
+                                </Grid.ColumnDefinitions>
+                                <Border Width="32"
+                                        Height="32"
+                                        CornerRadius="16"
+                                        Background="#1A2130">
+                                    <TextBlock Text="R"
+                                               Foreground="{StaticResource TextPrimaryBrush}"
+                                               HorizontalAlignment="Center"
+                                               VerticalAlignment="Center" />
+                                </Border>
+                                <StackPanel Grid.Column="1" Margin="12,0,12,0">
+                                    <TextBlock Text="Right Earbud"
+                                               Foreground="{StaticResource TextPrimaryBrush}"
+                                               FontSize="14"
+                                               FontWeight="Medium" />
+                                    <ProgressBar Style="{StaticResource BatteryProgressBarStyle}"
+                                                 Value="{Binding RightEarbud.BatteryProgressValue, Mode=OneWay}"
+                                                 Maximum="100"
+                                                 Margin="0,10,0,0" />
+                                    <TextBlock Text="{Binding RightEarbud.BatteryStatusText}"
+                                               Style="{StaticResource MutedTextStyle}"
+                                               Margin="0,8,0,0"
+                                               TextWrapping="Wrap" />
+                                </StackPanel>
+                                <TextBlock Grid.Column="2"
+                                           Text="{Binding RightEarbud.BatteryLabel}"
+                                           Foreground="{StaticResource TextPrimaryBrush}"
+                                           FontSize="14"
+                                           FontWeight="SemiBold"
+                                           VerticalAlignment="Top" />
+                            </Grid>
+                        </StackPanel>
+                    </Border>
+
+                    <Border Style="{StaticResource ShellCardStyle}"
+                            Padding="24"
+                            Margin="0,20,0,0">
+                        <StackPanel>
+                            <TextBlock Text="Quick Actions" Style="{StaticResource SectionHeaderStyle}" />
+
+                            <Button Command="{Binding TestAudioCommand}"
+                                    Style="{StaticResource SecondaryButtonStyle}"
+                                    Margin="0,22,0,0"
+                                    Padding="18,16"
+                                    HorizontalContentAlignment="Stretch">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="48" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <Border Width="38"
+                                            Height="38"
+                                            Background="#171D2A"
+                                            CornerRadius="12">
+                                        <TextBlock Text="T"
+                                                   Foreground="{StaticResource TextPrimaryBrush}"
+                                                   FontSize="16"
+                                                   FontWeight="SemiBold"
+                                                   HorizontalAlignment="Center"
+                                                   VerticalAlignment="Center" />
+                                    </Border>
+                                    <TextBlock Grid.Column="1"
+                                               Text="Test Audio"
+                                               Foreground="{StaticResource TextPrimaryBrush}"
+                                               FontSize="15"
+                                               FontWeight="SemiBold"
+                                               VerticalAlignment="Center"
+                                               Margin="12,0,0,0" />
+                                    <TextBlock Grid.Column="2"
+                                               Text=">"
+                                               Foreground="{StaticResource TextSecondaryBrush}"
+                                               FontSize="18"
+                                               VerticalAlignment="Center" />
+                                </Grid>
+                            </Button>
+
+                            <Button Command="{Binding RecalibrateCommand}"
+                                    Style="{StaticResource SecondaryButtonStyle}"
+                                    Margin="0,12,0,0"
+                                    Padding="18,16"
+                                    HorizontalContentAlignment="Stretch">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="48" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <Border Width="38"
+                                            Height="38"
+                                            Background="#171D2A"
+                                            CornerRadius="12">
+                                        <TextBlock Text="O"
+                                                   Foreground="{StaticResource TextPrimaryBrush}"
+                                                   FontSize="16"
+                                                   FontWeight="SemiBold"
+                                                   HorizontalAlignment="Center"
+                                                   VerticalAlignment="Center" />
+                                    </Border>
+                                    <TextBlock Grid.Column="1"
+                                               Text="Recalibrate"
+                                               Foreground="{StaticResource TextPrimaryBrush}"
+                                               FontSize="15"
+                                               FontWeight="SemiBold"
+                                               VerticalAlignment="Center"
+                                               Margin="12,0,0,0" />
+                                    <TextBlock Grid.Column="2"
+                                               Text=">"
+                                               Foreground="{StaticResource TextSecondaryBrush}"
+                                               FontSize="18"
+                                               VerticalAlignment="Center" />
+                                </Grid>
+                            </Button>
+
+                            <Button Command="{Binding OpenAudioSettingsCommand}"
+                                    Style="{StaticResource SecondaryButtonStyle}"
+                                    Margin="0,12,0,0"
+                                    Padding="18,16"
+                                    HorizontalContentAlignment="Stretch">
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="48" />
+                                        <ColumnDefinition Width="*" />
+                                        <ColumnDefinition Width="Auto" />
+                                    </Grid.ColumnDefinitions>
+                                    <Border Width="38"
+                                            Height="38"
+                                            Background="#171D2A"
+                                            CornerRadius="12">
+                                        <TextBlock Text="="
+                                                   Foreground="{StaticResource TextPrimaryBrush}"
+                                                   FontSize="16"
+                                                   FontWeight="SemiBold"
+                                                   HorizontalAlignment="Center"
+                                                   VerticalAlignment="Center" />
+                                    </Border>
+                                    <TextBlock Grid.Column="1"
+                                               Text="Audio Settings"
+                                               Foreground="{StaticResource TextPrimaryBrush}"
+                                               FontSize="15"
+                                               FontWeight="SemiBold"
+                                               VerticalAlignment="Center"
+                                               Margin="12,0,0,0" />
+                                    <TextBlock Grid.Column="2"
+                                               Text=">"
+                                               Foreground="{StaticResource TextSecondaryBrush}"
+                                               FontSize="18"
+                                               VerticalAlignment="Center" />
+                                </Grid>
+                            </Button>
+                        </StackPanel>
+                    </Border>
+                </StackPanel>
+            </ScrollViewer>
+        </Grid>
+    </Border>
+</Window>
